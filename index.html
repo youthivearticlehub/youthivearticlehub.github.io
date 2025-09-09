@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youthive Article Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.svg?v=2" type="image/svg+xml" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=2">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png?v=2">
+    <link rel="mask-icon" href="favicon.svg?v=2" color="#2c3e50">
+    <link rel="shortcut icon" href="favicon.ico?v=2">
+</head>
+<body>
+    
+    <header class="fixed-header">
+        <div class="header-content">
+            <div class="nav-links">
+                <a href="index.html">Ana Sayfa</a>
+                <a href="articles.html">Makaleler</a>
+                <a href="uploadarticle.html">Makale Yükle</a>
+                
+                <div class="dropdown">
+                    <a href="#">Kategoriler</a>
+                    <div class="dropdown-content">
+                        <div class="category-title">Tüm Kategoriler</div>
+                        
+                        <div class="has-submenu">
+                            <a href="#">Fen Bilimleri</a>
+                            <div class="submenu">
+                                <a href="#">Fizik</a>
+                                <a href="#">Kimya</a>
+                                <a href="#">Biyoloji</a>
+                            </div>
+                        </div>
+                        
+                        <div class="has-submenu">
+                            <a href="#">Uzay ve Astronomi</a>
+                            <div class="submenu">
+                                <a href="#">Uzay Keşifleri</a>
+                                <a href="#">Gezegenler ve Evren</a>
+                                <a href="#">Astrofizik</a>
+                            </div>
+                        </div>
+                        
+                        <div class="has-submenu">
+                            <a href="#">Teknoloji Dünyası</a>
+                            <div class="submenu">
+                                <a href="#">Yapay Zeka</a>
+                                <a href="#">Donanım</a>
+                                <a href="#">Yazılım</a>
+                                <a href="#">Siber Güvenlik</a>
+                                <a href="#">Kablosuz Teknolojiler</a>
+                            </div>
+                        </div>
+                        
+                        <div class="has-submenu">
+                            <a href="#">İnsan ve Sağlık</a>
+                            <div class="submenu">
+                                <a href="#">Psikoloji</a>
+                                <a href="#">Nörobilim</a>
+                                <a href="#">Sağlık Teknolojileri</a>
+                                <a href="#">Anatomi</a>
+                            </div>
+                        </div>
+                        
+                        <div class="has-submenu">
+                            <a href="#">Çevre ve Sürdürülebilirlik</a>
+                            <div class="submenu">
+                                <a href="#">Ekoloji</a>
+                                <a href="#">İklim Değişikliği</a>
+                                <a href="#">Yenilenebilir Enerji</a>
+                            </div>
+                        </div>
+                        
+                        <div class="has-submenu">
+                            <a href="#">Tarih</a>
+                            <div class="submenu">
+                                <a href="#">Devletler Tarihi</a>
+                                <a href="#">Tarihi Olaylar</a>
+                                <a href="#">Biyografi</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="index.html#biz-kimiz">Hakkımızda</a>
+            </div>
+            
+            <div class="logo-container">
+                <h1>YOUTHIVE</h1>
+                <h2>ARTICLE HUB</h2>
+            </div>
+            
+            <div class="auth-section">
+                <!-- Gece modu butonu üst bara eklendi -->
+                <div class="theme-selector-top">
+                    <button id="themeToggle" class="theme-btn">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+                
+                <div class="user-profile" id="userProfile" style="display: none;">
+                    <div class="user-avatar" id="userAvatar">U</div>
+                    <div class="user-name" id="userName">Kullanıcı</div>
+                </div>
+                
+                <div class="auth-buttons">
+                    <button class="auth-btn login" id="loginButton">Giriş Yap</button>
+                    <button class="auth-btn signup" id="signupButton">Oturum Aç</button>
+                    <button class="auth-btn logout" id="logoutButton" style="display: none;">Çıkış Yap</button>
+                </div>
+                
+                <div class="language-selector">
+                    <button class="active">TR</button>
+                    <button>EN</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <section class="welcome-section">
+            <h2>Hoş geldiniz</h2>
+            <p>A community that helps students with source of inspiration, looking for information and publish their own article</p>
+            <div style="display: flex; gap: 15px; margin-top: 20px;">
+                <a href="articles.html" class="explore-btn">Keşfet</a>
+                <a href="uploadarticle.html" class="explore-btn" style="background: #059669;">Makale Yükle</a>
+            </div>
+        </section>
+        
+        <div class="image-section">
+            <img src="images/homephoto.jpg" alt="Youthive Topluluğu" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1529070538774-1843cb3265df?q=80&w=1200&auto=format&fit=crop';">
+        </div>
+    </div>
+    
+    <section class="about-section" id="biz-kimiz">
+        <div class="about-container">
+            <div class="about-content-section">
+                <div class="about-text">
+                    <h2 class="about-title">Biz Kimiz?</h2>
+                    <div class="about-content">
+                        <p>Youthive olarak, öğrencilere ilham kaynağı olmayı, bilgiye erişimlerini kolaylaştırmayı ve kendi makalelerini yayınlayabilecekleri bir platform sunmayı amaçlıyoruz.</p>
+                        <p>Amacımız, öğrencilerin akademik ve kişisel gelişimlerine katkıda bulunmak, onlara kendilerini ifade edebilecekleri güvenli bir ortam sunmak ve geleceğin liderlerini yetiştirmektir.</p>
+                    </div>
+                </div>
+                
+                <div class="logo-display">
+                    <div class="logo-placeholder">
+                        <i class="fas fa-book-open"></i>
+                        <p>Youthive Logo</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="team-section">
+                <h3 class="team-title">Ekibimiz</h3>
+                <div class="team-members">
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4>Barış Akyıldırım</h4>
+                        <p>Kurucu</p>
+                        <a href="#" class="linkedin-link">LinkedIn Profili</a>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4>Emirhan Solmaz</h4>
+                        <p>Teknoloji Lideri</p>
+                        <a href="#" class="linkedin-link">LinkedIn Profili</a>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h4>Nur Sima Karhan</h4>
+                        <p>Teknoloji Lideri</p>
+                        <a href="#" class="linkedin-link">LinkedIn Profili</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <div class="login-modal" id="signupModal">
+        <div class="modal-content">
+            <div class="modal-image">
+                <i class="fas fa-user-plus"></i>
+                <h2>Youthive'a Katılın</h2>
+                <p>Yeni hesap oluşturarak topluluğumuzun bir parçası olun</p>
+            </div>
+            
+            <div class="modal-form">
+                <div class="modal-header">
+                    <h2>Oturum Aç</h2>
+                    <button class="close-modal">&times;</button>
+                </div>
+                
+                <form id="signupForm">
+                    <div class="form-group">
+                        <label for="signupName">Ad Soyad</label>
+                        <input type="text" id="signupName" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signupEmail">E-posta Adresi</label>
+                        <input type="email" id="signupEmail" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signupUsername">Kullanıcı Adı</label>
+                        <input type="text" id="signupUsername" name="username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signupPassword">Şifre</label>
+                        <input type="password" id="signupPassword" name="password" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="signupPhone">Telefon Numarası</label>
+                            <input type="tel" id="signupPhone" name="phone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="signupCountry">Ülke</label>
+                            <select id="signupCountry" name="country">
+                                <option value="">Seçiniz</option>
+                                <option value="turkey">Türkiye</option>
+                                <option value="usa">Amerika Birleşik Devletleri</option>
+                                <option value="germany">Almanya</option>
+                                <option value="france">Fransa</option>
+                                <option value="uk">Birleşik Krallık</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signupCity">Şehir</label>
+                        <input type="text" id="signupCity" name="city">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="kvkkConsent" name="kvkkConsent" required>
+                            <span class="checkmark"></span>
+                            <span>
+                                <a href="kvkk-aydinlatma.html" target="_blank" rel="noopener">KVKK ve Aydınlatma Metni</a>'ni okudum, onaylıyorum.
+                            </span>
+                        </label>
+                    </div>
+                    <button type="submit" class="login-form-btn">Hesap Oluştur</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="login-modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-image">
+                <i class="fas fa-user-circle"></i>
+                <h2>Youthive'a Hoş Geldiniz</h2>
+                <p>Hesabınıza giriş yapın và bilgiye erişimin keyfini çıkarın</p>
+            </div>
+            
+            <div class="modal-form">
+                <div class="modal-header">
+                    <h2>Giriş Yap</h2>
+                    <button class="close-modal">&times;</button>
+                </div>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">E-posta Adresi veya Kullanıcı Adı</label>
+                        <input type="text" id="loginEmail" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loginPassword">Şifre</label>
+                        <input type="password" id="loginPassword" name="password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="rememberMe" name="rememberMe">
+                            <span class="checkmark"></span>
+                            Beni hatırla
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="login-form-btn">Giriş Yap</button>
+                    
+                    <a href="#" class="forgot-password">Şifremi Unuttum</a>
+                    
+                    <div class="signup-link">
+                        Hesabınız yok mu? <a href="#" id="goToSignup">Oturum Aç</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2025 Youthive Article Hub. Tüm hakları saklıdır.</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+    <script src="articles.js"></script>
+</body>
+</html>

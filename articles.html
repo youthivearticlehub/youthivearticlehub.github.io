@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Makaleler - Youthive Article Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="alternate icon" href="favicon.ico">
+</head>
+<body>
+    
+    <header class="fixed-header">
+        <div class="header-content">
+            <div class="nav-links">
+                <a href="index.html">Ana Sayfa</a>
+                
+                <div class="dropdown">
+                    <a href="#">Kategoriler</a>
+                    <div class="dropdown-content">
+                        <div class="category-title">Tüm Kategoriler</div>
+                        
+                        <div class="has-submenu">
+                            <a href="#">Fen Bilimleri</a>
+                            <div class="submenu">
+                                <a href="#">Fizik</a>
+                                <a href="#">Kimya</a>
+                                <a href="#">Biyoloji</a>
+                            </div>
+                        </div>
+                        
+                        <div class="has-submenu">
+                            <a href="#">Uzay ve Astronomi</a>
+                            <div class="submenu">
+                                <a href="#">Uzay Keşifleri</a>
+                                <a href="#">Gezegenler ve Evren</a>
+                                <a href="#">Astrofizik</a>
+                            </div>
+                        </div>
+                        
+                        <div class="has-submenu">
+                            <a href="#">Teknoloji Dünyası</a>
+                            <div class="submenu">
+                                <a href="#">Yapay Zeka</a>
+                                <a href="#">Donanım</a>
+                                <a href="#">Yazılım</a>
+                                <a href="#">Siber Güvenlik</a>
+                                <a href="#">Kablosuz Teknolojiler</a>
+                            </div>
+                        </div>
+                        
+                        <div class="has-submenu">
+                            <a href="#">İnsan ve Sağlık</a>
+                            <div class="submenu">
+                                <a href="#">Psikoloji</a>
+                                <a href="#">Nörobilim</a>
+                                <a href="#">Sağlık Teknolojileri</a>
+                                <a href="#">Anatomi</a>
+                            </div>
+                        </div>
+                        
+                        <div class="has-submenu">
+                            <a href="#">Çevre ve Sürdürülebilirlik</a>
+                            <div class="submenu">
+                                <a href="#">Ekoloji</a>
+                                <a href="#">İklim Değişikliği</a>
+                                <a href="#">Yenilenebilir Enerji</a>
+                            </div>
+                        </div>
+                        
+                        <div class="has-submenu">
+                            <a href="#">Tarih</a>
+                            <div class="submenu">
+                                <a href="#">Devletler Tarihi</a>
+                                <a href="#">Tarihi Olaylar</a>
+                                <a href="#">Biyografi</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="index.html#biz-kimiz">Hakkımızda</a>
+            </div>
+            
+            <div class="logo-container">
+                <h1>YOUTHIVE</h1>
+                <h2>ARTICLE HUB</h2>
+            </div>
+            
+            <div class="auth-section">
+                <div class="theme-selector-top">
+                    <button id="themeToggle" class="theme-btn">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+                
+                <div class="user-profile" id="userProfile" style="display: none;">
+                    <div class="user-avatar" id="userAvatar">U</div>
+                    <div class="user-name" id="userName">Kullanıcı</div>
+                </div>
+                
+                <div class="auth-buttons">
+                    <button class="auth-btn login" id="loginButton">Giriş Yap</button>
+                    <button class="auth-btn signup" id="signupButton">Oturum Aç</button>
+                    <button class="auth-btn logout" id="logoutButton" style="display: none;">Çıkış Yap</button>
+                </div>
+                
+                <div class="language-selector">
+                    <button class="active">TR</button>
+                    <button>EN</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main class="articles-main">
+        <div class="articles-header">
+            <h2>Makaleler</h2>
+            
+            <button class="add-article-btn" id="addArticleBtn">
+                <i class="fas fa-plus"></i> Yeni Makale
+            </button>
+        </div>
+        
+        <div class="articles-container">
+            <div class="article-filters">
+                <input type="text" placeholder="Makalelerde ara..." class="search-input" id="searchInput">
+                <select class="category-filter" id="categoryFilter">
+                    <option value="">Tüm Kategoriler</option>
+                    <option value="physics">Fizik</option>
+                    <option value="chemistry">Kimya</option>
+                    <option value="biology">Biyoloji</option>
+                    <option value="ai">Yapay Zeka</option>
+                    <option value="space">Uzay ve Astronomi</option>
+                    <option value="tech">Teknoloji</option>
+                    <option value="health">Sağlık</option>
+                    <option value="environment">Çevre</option>
+                    <option value="history">Tarih</option>
+                </select>
+                <select class="sort-filter" id="sortFilter">
+                    <option value="newest">En Yeniler</option>
+                    <option value="oldest">En Eskiler</option>
+                    <option value="popular">En Popüler</option>
+                    <option value="az">A'dan Z'ye</option>
+                    <option value="za">Z'den A'ya</option>
+                </select>
+            </div>
+            
+            <div class="articles-grid" id="articlesGrid">
+                <div class="article-card">
+                    <div class="article-category">Fizik</div>
+                    <h3 class="article-title">Kuantum Fiziğinin Temel İlkeleri</h3>
+                    <p class="article-excerpt">Kuantum mekaniği, atom ve atom altı seviyelerde doğanın davranışını inceleyen bir fizik dalıdır. Bu makalede kuantum fiziğinin temel ilkelerini ve günlük hayatımızdaki etkilerini inceliyoruz.</p>
+                    <div class="article-meta">
+                        <span class="article-author">Ahmet Yılmaz</span>
+                        <span class="article-date">15 Eylül 2023</span>
+                    </div>
+                    <div class="article-actions">
+                        <button class="article-btn read-btn">Oku</button>
+                        <button class="article-btn save-btn">Kaydet</button>
+                    </div>
+                </div>
+                
+                <div class="article-card">
+                    <div class="article-category">Yapay Zeka</div>
+                    <h3 class="article-title">Makine Öğrenmesi ve Derin Öğrenme</h3>
+                    <p class="article-excerpt">Yapay zeka teknolojileri son yıllarda büyük bir ivme kazandı. Peki makine öğrenmesi ve derin öğrenme arasındaki farklar nelerdir? Hangi alanlarda kullanılıyorlar?</p>
+                    <div class="article-meta">
+                        <span class="article-author">Mehmet Demir</span>
+                        <span class="article-date">22 Ağustos 2023</span>
+                    </div>
+                    <div class="article-actions">
+                        <button class="article-btn read-btn">Oku</button>
+                        <button class="article-btn save-btn">Kaydet</button>
+                    </div>
+                </div>
+                
+                <div class="article-card">
+                    <div class="article-category">Biyoloji</div>
+                    <h3 class="article-title">CRISPR Gen Düzenleme Teknolojisi</h3>
+                    <p class="article-excerpt">CRISPR-Cas9, genetik mühendisliğinde devrim yaratan bir teknoloji olarak karşımıza çıkıyor. Bu yazıda CRISPR'ın çalışma prensibi ve tıptaki uygulamalarını ele alıyoruz.</p>
+                    <div class="article-meta">
+                        <span class="article-author">Zeynep Kaya</span>
+                        <span class="article-date">5 Temmuz 2023</span>
+                    </div>
+                    <div class="article-actions">
+                        <button class="article-btn read-btn">Oku</button>
+                        <button class="article-btn save-btn">Kaydet</button>
+                    </div>
+                </div>
+                
+                <div class="article-card">
+                    <div class="article-category">Uzay ve Astronomi</div>
+                    <h3 class="article-title">Mars Kolonizasyonu: Hayal mi Gerçek mi?</h3>
+                    <p class="article-excerpt">İnsanlığın Mars'ta yaşam kurma hayali giderek gerçeğe dönüşüyor. Bu makalede Mars kolonizasyonunun teknik zorluklarını and çözüm önerilerini inceliyoruz.</p>
+                    <div class="article-meta">
+                        <span class="article-author">Ali Öztürk</span>
+                        <span class="article-date">30 Haziran 2023</span>
+                    </div>
+                    <div class="article-actions">
+                        <button class="article-btn read-btn">Oku</button>
+                        <button class="article-btn save-btn">Kaydet</button>
+                    </div>
+                </div>
+                
+                <div class="article-card">
+                    <div class="article-category">Çevre</div>
+                    <h3 class="article-title">İklim Değişikliği ve Sürdürülebilir Çözümler</h3>
+                    <p class="article-excerpt">İklim değişikliği dünyamızı tehdit eden en büyük sorunlardan biri. Bu yazıda iklim değişikliğinin nedenleri ve sürdürülebilir çözüm önerilerini ele alıyoruz.</p>
+                    <div class="article-meta">
+                        <span class="article-author">Ayşe Korkmaz</span>
+                        <span class="article-date">18 Mayıs 2023</span>
+                    </div>
+                    <div class="article-actions">
+                        <button class="article-btn read-btn">Oku</button>
+                        <button class="article-btn save-btn">Kaydet</button>
+                    </div>
+                </div>
+                
+                <div class="article-card">
+                    <div class="article-category">Tarih</div>
+                    <h3 class="article-title">Osmanlı İmparatorluğu'nda Bilim ve Teknoloji</h3>
+                    <p class="article-excerpt">Osmanlı İmparatorluğu'nun bilim ve teknoloji alanındaki katkıları often göz ardı edilir. Bu makalede Osmanlı'nın bilimsel mirasını ve icatlarını keşfediyoruz.</p>
+                    <div class="article-meta">
+                        <span class="article-author">Mustafa Şen</span>
+                        <span class="article-date">3 Nisan 2023</span>
+                    </div>
+                    <div class="article-actions">
+                        <button class="article-btn read-btn">Oku</button>
+                        <button class="article-btn save-btn">Kaydet</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <div class="login-modal" id="signupModal">
+        <div class="modal-content">
+            <div class="modal-image">
+                <i class="fas fa-user-plus"></i>
+                <h2>Youthive'a Katılın</h2>
+                <p>Yeni hesap oluşturarak topluluğumuzın bir parçası olun</p>
+            </div>
+            
+            <div class="modal-form">
+                <div class="modal-header">
+                    <h2>Oturum Aç</h2>
+                    <button class="close-modal">&times;</button>
+                </div>
+                
+                <form id="signupForm">
+                    <div class="form-group">
+                        <label for="signupName">Ad Soyad</label>
+                        <input type="text" id="signupName" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signupEmail">E-posta Adresi</label>
+                        <input type="email" id="signupEmail" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signupUsername">Kullanıcı Adı</label>
+                        <input type="text" id="signupUsername" name="username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signupPassword">Şifre</label>
+                        <input type="password" id="signupPassword" name="password" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="signupPhone">Telefon Numarası</label>
+                            <input type="tel" id="signupPhone" name="phone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="signupCountry">Ülke</label>
+                            <select id="signupCountry" name="country">
+                                <option value="">Seçiniz</option>
+                                <option value="turkey">Türkiye</option>
+                                <option value="usa">Amerika Birleşik Devletleri</option>
+                                <option value="germany">Almanya</option>
+                                <option value="france">Fransa</option>
+                                <option value="uk">Birleşik Krallık</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signupCity">Şehir</label>
+                        <input type="text" id="signupCity" name="city">
+                    </div>
+                    
+                    <button type="submit" class="login-form-btn">Hesap Oluştur</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="login-modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-image">
+                <i class="fas fa-user-circle"></i>
+                <h2>Youthive'a Hoş Geldiniz</h2>
+                <p>Hesabınıza giriş yapın ve bilgiye erişimin keyfini çıkarın</p>
+            </div>
+            
+            <div class="modal-form">
+                <div class="modal-header">
+                    <h2>Giriş Yap</h2>
+                    <button class="close-modal">&times;</button>
+                </div>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">E-posta Adresi veya Kullanıcı Adı</label>
+                        <input type="text" id="loginEmail" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loginPassword">Şifre</label>
+                        <input type="password" id="loginPassword" name="password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="rememberMe" name="rememberMe">
+                            <span class="checkmark"></span>
+                            Beni hatırla
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="login-form-btn">Giriş Yap</button>
+                    
+                    <a href="#" class="forgot-password">Şifremi Unuttum</a>
+                    
+                    <div class="signup-link">
+                        Hesabınız yok mu? <a href="#" id="goToSignup">Oturum Aç</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2025 Youthive Article Hub. Tüm hakları saklıdır.</p>
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+    <script src="articles.js"></script>
+</body>
+</html>

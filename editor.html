@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editör Paneli - Youthive Article Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="alternate icon" href="favicon.ico">
+    <style>
+        .editor-main { padding: 30px 20px; max-width: 1200px; margin: 70px auto 0; min-height: calc(100vh - 200px); }
+        .editor-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; gap: 10px; flex-wrap: wrap; }
+        .editor-header h2 { color: #2c3e50; font-size: 28px; font-weight: 600; }
+        .pending-count { color: #657b92; font-size: 14px; }
+        .panel { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .table { width: 100%; border-collapse: collapse; }
+        .table th, .table td { padding: 12px 10px; border-bottom: 1px solid #e2e8f0; text-align: left; font-size: 14px; }
+        .table th { background: #f8fafc; color: #2c3e50; position: sticky; top: 0; z-index: 1; }
+        .actions { display: flex; gap: 8px; }
+        .btn { padding: 8px 12px; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600; }
+        .btn-approve { background: #10b981; color: white; }
+        .btn-reject { background: #ef4444; color: white; }
+        .muted { color: #64748b; font-size: 13px; }
+        .filters { display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+        .filters input, .filters select { padding: 8px 10px; border: 2px solid #e2e8f0; border-radius: 6px; }
+        .status-badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600; }
+        .status-pending { background:#f59e0b; color: white; }
+        .empty { text-align:center; padding: 30px; color:#657b92; }
+        .unauthorized { text-align:center; padding: 40px 20px; }
+        .unauthorized h3 { color:#e74c3c; margin-bottom: 10px; }
+        .unauthorized p { color:#657b92; }
+        .night-mode .panel { background:#2d3748; }
+        .night-mode .table th { background:#1f2937; color:#e2e8f0; }
+        .night-mode .table td { border-color:#4a5568; color:#e2e8f0; }
+        .night-mode .muted { color:#cbd5e1; }
+    </style>
+</head>
+<body>
+    <header class="fixed-header">
+        <div class="header-content">
+            <div class="nav-links">
+                <a href="index.html">Ana Sayfa</a>
+                <a href="articles.html">Makaleler</a>
+                <a href="uploadarticle.html">Makale Yükle</a>
+                <a href="editor.html">Editör Paneli</a>
+                <a href="index.html#biz-kimiz">Hakkımızda</a>
+            </div>
+            <div class="logo-container">
+                <h1>YOUTHIVE</h1>
+                <h2>ARTICLE HUB</h2>
+            </div>
+            <div class="auth-section">
+                <div class="theme-selector-top">
+                    <button id="themeToggle" class="theme-btn"><i class="fas fa-moon"></i></button>
+                </div>
+                <div class="user-profile" id="userProfile" style="display: none;">
+                    <div class="user-avatar" id="userAvatar">U</div>
+                    <div class="user-name" id="userName">Kullanıcı</div>
+                </div>
+                <div class="auth-buttons">
+                    <button class="auth-btn login" id="loginButton">Giriş Yap</button>
+                    <button class="auth-btn signup" id="signupButton">Oturum Aç</button>
+                    <button class="auth-btn logout" id="logoutButton" style="display: none;">Çıkış Yap</button>
+                </div>
+                <div class="language-selector">
+                    <button class="active">TR</button>
+                    <button>EN</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="editor-main">
+        <div class="editor-header">
+            <h2>Makaleler</h2>
+            <div class="pending-count" id="pendingCount"></div>
+        </div>
+        <div class="panel">
+            <div class="filters">
+                <input type="text" id="searchTerm" placeholder="Başlıkta ara">
+                <select id="categorySelect"><option value="">Tüm Kategoriler</option></select>
+                <select id="statusSelect">
+                    <option value="">Tüm Durumlar</option>
+                    <option value="pending">Bekleyen</option>
+                    <option value="approved">Onaylı</option>
+                    <option value="rejected">Reddedilen</option>
+                </select>
+                <select id="sortSelect">
+                    <option value="newest">En Yeni</option>
+                    <option value="oldest">En Eski</option>
+                </select>
+            </div>
+            <div id="listContainer">
+                <div class="empty">Yükleniyor...</div>
+            </div>
+        </div>
+        <div id="unauthorized" class="unauthorized" style="display:none">
+            <h3>Yetkiniz Yok</h3>
+            <p>Bu sayfaya erişim sadece editörler içindir.</p>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+    <script src="editor.js"></script>
+</body>
+</html>

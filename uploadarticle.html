@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Makale Yükle - Youthive Article Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="alternate icon" href="favicon.ico">
+</head>
+<body>
+    
+    <header class="fixed-header">
+        <div class="header-content">
+            <div class="nav-links">
+                <a href="index.html">Ana Sayfa</a>
+                <a href="articles.html">Makaleler</a>
+                <a href="uploadarticle.html">Makale Yükle</a>
+                
+                <div class="dropdown">
+                    <a href="#">Kategoriler</a>
+                    <div class="dropdown-content">
+                        <div class="category-title">Tüm Kategoriler</div>
+                        
+                        <div class="has-submenu">
+                            <a href="#">Fen Bilimleri</a>
+                            <div class="submenu">
+                                <a href="#">Fizik</a>
+                                <a href="#">Kimya</a>
+                                <a href="#">Biyoloji</a>
+                            </div>
+                        </div>
+                        
+                        <div class="has-submenu">
+                            <a href="#">Uzay ve Astronomi</a>
+                            <div class="submenu">
+                                <a href="#">Uzay Keşifleri</a>
+                                <a href="#">Gezegenler ve Evren</a>
+                                <a href="#">Astrofizik</a>
+                            </div>
+                        </div>
+                        
+                        <div class="has-submenu">
+                            <a href="#">Teknoloji Dünyası</a>
+                            <div class="submenu">
+                                <a href="#">Yapay Zeka</a>
+                                <a href="#">Donanım</a>
+                                <a href="#">Yazılım</a>
+                                <a href="#">Siber Güvenlik</a>
+                                <a href="#">Kablosuz Teknolojiler</a>
+                            </div>
+                        </div>
+                        
+                        <div class="has-submenu">
+                            <a href="#">İnsan ve Sağlık</a>
+                            <div class="submenu">
+                                <a href="#">Psikoloji</a>
+                                <a href="#">Nörobilim</a>
+                                <a href="#">Sağlık Teknolojileri</a>
+                                <a href="#">Anatomi</a>
+                            </div>
+                        </div>
+                        
+                        <div class="has-submenu">
+                            <a href="#">Çevre ve Sürdürülebilirlik</a>
+                            <div class="submenu">
+                                <a href="#">Ekoloji</a>
+                                <a href="#">İklim Değişikliği</a>
+                                <a href="#">Yenilenebilir Enerji</a>
+                            </div>
+                        </div>
+                        
+                        <div class="has-submenu">
+                            <a href="#">Tarih</a>
+                            <div class="submenu">
+                                <a href="#">Devletler Tarihi</a>
+                                <a href="#">Tarihi Olaylar</a>
+                                <a href="#">Biyografi</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <a href="index.html#biz-kimiz">Hakkımızda</a>
+            </div>
+            
+            <div class="logo-container">
+                <h1>YOUTHIVE</h1>
+                <h2>ARTICLE HUB</h2>
+            </div>
+            
+            <div class="auth-section">
+                <div class="theme-selector-top">
+                    <button id="themeToggle" class="theme-btn">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+                
+                <div class="user-profile" id="userProfile" style="display: none;">
+                    <div class="user-avatar" id="userAvatar">U</div>
+                    <div class="user-name" id="userName">Kullanıcı</div>
+                </div>
+                
+                <div class="auth-buttons">
+                    <button class="auth-btn login" id="loginButton">Giriş Yap</button>
+                    <button class="auth-btn signup" id="signupButton">Oturum Aç</button>
+                    <button class="auth-btn logout" id="logoutButton" style="display: none;">Çıkış Yap</button>
+                </div>
+                
+                <div class="language-selector">
+                    <button class="active">TR</button>
+                    <button>EN</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main class="upload-main">
+        <div class="upload-container">
+            <div id="uploadFormSection">
+                <h2>Yeni Makale Yükle</h2>
+                <p class="upload-description">Makalenizi PDF formatında yükleyin. Editör onayından sonra yayınlanacaktır.</p>
+                
+                <form id="articleUploadForm">
+                    <div class="form-group">
+                        <label for="articleTitle">Makale Başlığı *</label>
+                        <input type="text" id="articleTitle" name="articleTitle" required 
+                               placeholder="Makalenizin başlığını yazın" maxlength="200">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="articleCategory">Kategori *</label>
+                        <select id="articleCategory" name="articleCategory" required>
+                            <option value="">Kategori seçin</option>
+                                <option value="">Kategori seçin</option>
+                                <option value="1">Fizik</option>
+                                <option value="2">Kimya</option>
+                                <option value="3">Biyoloji</option>
+                                <option value="4">Yapay Zeka</option>
+                                <option value="5">Uzay ve Astronomi</option>
+                                <option value="6">Teknoloji</option>
+                                <option value="7">Sağlık</option>
+                                <option value="8">Çevre</option>
+                                <option value="9">Tarih</option>
+                                <option value="10">Matematik</option>
+                                <option value="11">Edebiyat</option>
+                                <option value="12">Sosyal Bilimler</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="articleAbstract">Makale Özeti (Opsiyonel)</label>
+                        <textarea id="articleAbstract" name="articleAbstract" rows="4" 
+                                  placeholder="Makalenizin kısa bir özetini yazın" maxlength="500"></textarea>
+                        <div style="font-size: 12px; color: #657b92; text-align: right;">
+                            <span id="abstractCounter">0</span>/500 karakter
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="articleFile">PDF Dosyası *</label>
+                        <div class="file-upload-container">
+                            <input type="file" id="articleFile" name="articleFile" accept=".pdf" required class="file-input">
+                            <label for="articleFile" class="file-upload-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>PDF dosyasını seçin veya sürükleyin</span>
+                                <small style="display: block; margin-top: 5px; font-size: 12px;">
+                                    Maksimum dosya boyutu: 10MB
+                                </small>
+                            </label>
+                            <div id="fileName" class="file-name">Henüz dosya seçilmedi</div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="upload-btn">
+                        <i class="fas fa-upload"></i> Makale Yükle
+                    </button>
+                </form>
+            </div>
+            
+            <div id="successSection" style="display: none;">
+                <div class="success-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2>Makaleniz Başarıyla Yüklendi!</h2>
+                <p>Makaleniz editör onayından geçtikten sonra sizi bilgilendireceğiz.</p>
+                <p>5 saniye içinde makaleler sayfasına yönlendirileceksiniz...</p>
+                <a href="articles.html" class="home-btn">Hemen Git</a>
+                <a href="index.html" class="home-btn" style="background: #657b92; margin-top: 10px;">Ana Sayfaya Dön</a>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Giriş ve Kayıt Modal'ları -->
+    <div class="login-modal" id="signupModal">
+        <div class="modal-content">
+            <div class="modal-image">
+                <i class="fas fa-user-plus"></i>
+                <h2>Youthive'a Katılın</h2>
+                <p>Yeni hesap oluşturarak topluluğumuzun bir parçası olun</p>
+            </div>
+            
+            <div class="modal-form">
+                <div class="modal-header">
+                    <h2>Oturum Aç</h2>
+                    <button class="close-modal">&times;</button>
+                </div>
+                
+                <form id="signupForm">
+                    <div class="form-group">
+                        <label for="signupName">Ad Soyad</label>
+                        <input type="text" id="signupName" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signupEmail">E-posta Adresi</label>
+                        <input type="email" id="signupEmail" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signupUsername">Kullanıcı Adı</label>
+                        <input type="text" id="signupUsername" name="username" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signupPassword">Şifre</label>
+                        <input type="password" id="signupPassword" name="password" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="signupPhone">Telefon Numarası</label>
+                            <input type="tel" id="signupPhone" name="phone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="signupCountry">Ülke</label>
+                            <select id="signupCountry" name="country">
+                                <option value="">Seçiniz</option>
+                                <option value="turkey">Türkiye</option>
+                                <option value="usa">Amerika Birleşik Devletleri</option>
+                                <option value="germany">Almanya</option>
+                                <option value="france">Fransa</option>
+                                <option value="uk">Birleşik Krallık</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signupCity">Şehir</label>
+                        <input type="text" id="signupCity" name="city">
+                    </div>
+                    
+                    <button type="submit" class="login-form-btn">Hesap Oluştur</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="login-modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-image">
+                <i class="fas fa-user-circle"></i>
+                <h2>Youthive'a Hoş Geldiniz</h2>
+                <p>Hesabınıza giriş yapın ve bilgiye erişimin keyfini çıkarın</p>
+            </div>
+            
+            <div class="modal-form">
+                <div class="modal-header">
+                    <h2>Giriş Yap</h2>
+                    <button class="close-modal">&times;</button>
+                </div>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">E-posta Adresi veya Kullanıcı Adı</label>
+                        <input type="text" id="loginEmail" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loginPassword">Şifre</label>
+                        <input type="password" id="loginPassword" name="password" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="rememberMe" name="rememberMe">
+                            <span class="checkmark"></span>
+                            Beni hatırla
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="login-form-btn">Giriş Yap</button>
+                    
+                    <a href="#" class="forgot-password">Şifremi Unuttum</a>
+                    
+                    <div class="signup-link">
+                        Hesabınız yok mu? <a href="#" id="goToSignup">Oturum Aç</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+    <script src="upload.js"></script>
+</body>
+</html>

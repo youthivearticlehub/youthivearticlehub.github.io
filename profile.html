@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profilim - Youthive Article Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="alternate icon" href="favicon.ico">
+  <style>
+    .profile-main { padding: 30px 20px; max-width: 1100px; margin: 70px auto 0; min-height: calc(100vh - 200px); }
+    .profile-grid { display: grid; grid-template-columns: 320px 1fr; gap: 20px; }
+    .panel { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+    .profile-card { text-align: center; }
+    .big-avatar { width: 100px; height: 100px; border-radius: 50%; margin: 0 auto 10px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: #fff; display:flex; align-items:center; justify-content:center; font-size: 40px; font-weight: 700; }
+    .muted { color:#657b92; font-size: 14px; }
+    .profile-fields { margin-top: 10px; text-align:left; }
+    .profile-fields div { margin-bottom: 8px; }
+    .section-title { font-size: 18px; color:#2c3e50; font-weight: 600; margin-bottom: 10px; }
+    .table { width: 100%; border-collapse: collapse; }
+    .table th, .table td { padding: 10px; border-bottom: 1px solid #e2e8f0; text-align: left; font-size: 14px; }
+    .table th { background:#f8fafc; }
+    .status-badge { display:inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600; }
+    .status-approved { background:#10b981; color:#fff; }
+    .status-pending { background:#f59e0b; color:#fff; }
+    .status-rejected { background:#ef4444; color:#fff; }
+    .btn { padding: 8px 12px; border:none; border-radius:6px; background: var(--primary-color); color:#fff; cursor:pointer; font-weight:600; font-size: 13px; }
+    .btn:disabled { opacity:.7; cursor: not-allowed; }
+    .form-group { margin-bottom: 12px; }
+    .form-group input { width:100%; padding:10px; border:2px solid #e2e8f0; border-radius:6px; font-size:14px; }
+    .night-mode .panel { background:#2d3748; }
+    .night-mode .table th { background:#1f2937; color:#e2e8f0; }
+    .night-mode .table td { border-color:#4a5568; color:#e2e8f0; }
+    .night-mode .muted { color:#cbd5e1; }
+  </style>
+</head>
+<body>
+  <header class="fixed-header">
+    <div class="header-content">
+      <div class="nav-links">
+        <a href="index.html">Ana Sayfa</a>
+        <a href="articles.html">Makaleler</a>
+        <a href="uploadarticle.html">Makale Yükle</a>
+        <a href="editor.html">Editör Paneli</a>
+        <a href="index.html#biz-kimiz">Hakkımızda</a>
+      </div>
+      <div class="logo-container">
+        <h1>YOUTHIVE</h1>
+        <h2>ARTICLE HUB</h2>
+      </div>
+      <div class="auth-section">
+        <div class="theme-selector-top">
+          <button id="themeToggle" class="theme-btn"><i class="fas fa-moon"></i></button>
+        </div>
+        <div class="user-profile" id="userProfile" style="display: none;">
+          <div class="user-avatar" id="userAvatar">U</div>
+          <div class="user-name" id="userName">Kullanıcı</div>
+        </div>
+        <div class="auth-buttons">
+          <button class="auth-btn login" id="loginButton">Giriş Yap</button>
+          <button class="auth-btn signup" id="signupButton">Oturum Aç</button>
+          <button class="auth-btn logout" id="logoutButton" style="display: none;">Çıkış Yap</button>
+        </div>
+        <div class="language-selector">
+          <button class="active">TR</button>
+          <button>EN</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="profile-main">
+    <div id="loginRequired" class="panel" style="display:none; text-align:center; padding: 40px 20px;">
+      <i class="fas fa-exclamation-circle" style="font-size:60px; color:#e74c3c; margin-bottom:10px;"></i>
+      <h2>Giriş Yapmanız Gerekiyor</h2>
+      <p class="muted">Profil sayfasını görmek için lütfen giriş yapın.</p>
+      <div style="margin-top:15px; display:flex; gap:10px; justify-content:center;">
+        <button class="auth-btn login" onclick="openLoginModal()">Giriş Yap</button>
+        <a class="auth-btn" style="text-decoration:none;" href="index.html">Ana Sayfa</a>
+      </div>
+    </div>
+
+    <div id="profileContent" class="profile-grid" style="display:none;">
+      <section class="panel profile-card">
+        <div class="big-avatar" id="profileBigAvatar">U</div>
+        <h2 id="profileFullName">Kullanıcı</h2>
+        <div class="muted" id="profileUsername">@username</div>
+        <div class="profile-fields">
+          <div>E-posta: <span id="profileEmail" class="muted"></span></div>
+          <div>Üyelik: <span id="profileCreated" class="muted"></span></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="section-title">Yüklediğim Makaleler</div>
+        <div id="myArticles" style="overflow:auto; max-height: 55vh;">
+          <div class="muted">Yükleniyor...</div>
+        </div>
+        <hr style="margin: 20px 0; border-color:#e2e8f0;" />
+        <div class="section-title">Şifre Değiştir</div>
+        <form id="passwordForm" style="max-width: 420px;">
+          <div class="form-group">
+            <input type="password" id="currentPassword" placeholder="Mevcut şifre" autocomplete="current-password" required />
+          </div>
+          <div class="form-group">
+            <input type="password" id="newPassword" placeholder="Yeni şifre (min 6 karakter)" autocomplete="new-password" required />
+          </div>
+          <div class="form-group">
+            <input type="password" id="confirmPassword" placeholder="Yeni şifre (tekrar)" autocomplete="new-password" required />
+          </div>
+          <button type="submit" class="btn" id="passwordSubmit">Şifreyi Güncelle</button>
+          <div class="muted" style="margin-top:8px;">Mevcut şifrenizi bilmiyorsanız <a href="#" id="sendReset">şifre sıfırlama e-postas�� gönder</a>.</div>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+  <script src="profile.js"></script>
+</body>
+</html>
