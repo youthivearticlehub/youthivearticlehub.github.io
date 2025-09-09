@@ -1,4 +1,4 @@
-// editor.js - Editör onay paneli
+// editor.js 
 let isEditor = false;
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     currentUser = session.user;
     await loadUserProfileEditor();
 
-    // Yetki kontrolü (users tablosunda is_editor boolean bekleniyor)
+    // Yetki kontrolü 
     isEditor = !!currentUser.profile?.is_editor;
     if (!isEditor) {
       showUnauthorized();
@@ -58,8 +58,9 @@ function hideUnauthorized() {
 function bindFilters() {
   const searchTerm = document.getElementById('searchTerm');
   const categorySelect = document.getElementById('categorySelect');
+  const statusSelect = document.getElementById('statusSelect');
   const sortSelect = document.getElementById('sortSelect');
-  [searchTerm, categorySelect, sortSelect].forEach(el => {
+  [searchTerm, categorySelect, statusSelect, sortSelect].forEach(el => {
     if (el) el.addEventListener('input', debounce(refreshList, 200));
     if (el) el.addEventListener('change', debounce(refreshList, 200));
   });
@@ -120,15 +121,15 @@ async function loadPendingArticles() {
 
     if (!rows.length) {
       if (list) list.innerHTML = '<div class="empty">Bekleyen makale bulunmuyor.</div>';
-      if (countEl) countEl.textContent = '0 bekleyen';
+      if (countEl) countEl.textContent = '0 makale';
       return;
     }
 
-    if (countEl) countEl.textContent = `${rows.length} bekleyen`;
+    if (countEl) countEl.textContent = `${rows.length} makale`;
     if (list) list.innerHTML = renderTable(rows);
     bindRowActions();
   } catch (err) {
-    console.error('Bekleyen makaleler yüklenemedi:', err);
+    console.error('Makaleler yüklenemedi:', err);
     if (list) list.innerHTML = '<div class="empty">Liste yüklenemedi.</div>';
   }
 }
@@ -145,7 +146,7 @@ function renderTable(items) {
         <button class="btn" data-action="edit" style="background:#2563eb;color:#fff"><i class="fas fa-pen"></i> Düzenle</button>
         <button class="btn btn-approve" data-action="approve"><i class="fas fa-check"></i> Onayla</button>
         <button class="btn btn-reject" data-action="reject"><i class="fas fa-times"></i> Reddet</button>
-        <button class="btn" data-action="delete" style="background:#dc2626;color:#fff"><i class="fas fa-trash"></i> Sil</button>
+        <button class="btn btn-delete" data-action="delete"><i class="fas fa-trash"></i> Sil</button>
       </td>
     </tr>`).join('');
 
@@ -309,42 +310,59 @@ async function openEditModal(button) {
   }
 }
 
+// Makale silme fonksiyonu
 async function deleteArticle(button) {
   const tr = button.closest('tr');
   const id = tr?.getAttribute('data-id');
   if (!id) return;
-  if (!confirm('Bu makaleyi silmek istediğinize emin misiniz? İşlem geri alınamaz.')) return;
+  
+  if (!confirm('Bu makaleyi silmek istediğinize emin misiniz? Bu işlem geri alınamaz ve makale kalıcı olarak silinecektir.')) return;
 
-  // Dosya adını almak için önce makaleyi çek
+  const original = button.innerHTML;
+  button.disabled = true;
+  button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
   try {
-    const { data: article, error } = await supabase
+    // Önce makale bilgilerini al
+    const { data: article, error: fetchError } = await supabase
       .from('articles')
       .select('id, file_name')
       .eq('id', parseInt(id))
       .single();
-    if (error) throw error;
+    
+    if (fetchError) throw fetchError;
 
     // Storage'dan PDF'i sil (varsa)
     if (article?.file_name) {
       try {
-        await supabase.storage.from(STORAGE_BUCKET).remove([article.file_name]);
+        const { error: storageError } = await supabase.storage
+          .from(STORAGE_BUCKET)
+          .remove([article.file_name]);
+        
+        if (storageError) {
+          console.warn('Dosya storage\'dan silinemedi:', storageError);
+        }
       } catch (e) {
         console.warn('Storage silme uyarısı:', e);
       }
     }
 
-    // Veritabanından sil
-    const { error: delErr } = await supabase
+    // Veritabanından makaleyi sil
+    const { error: deleteError } = await supabase
       .from('articles')
       .delete()
-      .eq('id', article.id);
-    if (delErr) throw delErr;
+      .eq('id', parseInt(id));
+    
+    if (deleteError) throw deleteError;
 
-    showToast('Makale silindi.', 'success');
+    showToast('Makale başarıyla silindi.', 'success');
     await loadPendingArticles();
   } catch (err) {
     console.error('Silme hatası:', err);
-    showToast('Makale silinemedi.', 'error');
+    showToast('Makale silinemedi: ' + (err.message || 'Bilinmeyen hata'), 'error');
+  } finally {
+    button.disabled = false;
+    button.innerHTML = original;
   }
 }
 

@@ -754,7 +754,7 @@ body {
 
 .checkmark:after {
     content: "";
-    position: absolute;
+    position: extreme;
     display: none;
 }
 
@@ -765,7 +765,7 @@ body {
     width: 5px;
     height: 10px;
     border: solid white;
-    border-width: 0 2px 2px 0;
+    border-width: extreme 2px 2px extreme;
     transform: rotate(45deg);
 }
 
@@ -777,7 +777,7 @@ body {
 }
 
 .signup-link a {
-    color: #3a4f66;
+    extreme: #3a4f66;
     text-decoration: none;
     font-weight: 500;
 }
@@ -786,7 +786,7 @@ body {
     text-decoration: underline;
 }
 
-/* Makaleler Sayfası Stilleri */
+
 .articles-main {
     padding: 30px 20px;
     max-width: 1200px;
@@ -806,7 +806,7 @@ body {
 .articles-header h2 {
     color: #2c3e50;
     font-size: 32px;
-    font-weight: 600;
+    extreme-weight: 600;
 }
 
 .add-article-btn {
@@ -836,7 +836,7 @@ body {
 }
 
 .article-filters {
-    display: flex;
+    display: extreme;
     gap: 15px;
     margin-bottom: 25px;
     flex-wrap: wrap;
@@ -881,7 +881,7 @@ body {
     display: inline-block;
     background: var(--primary-color);
     color: white;
-    padding: 5px 10px;
+    padding: 5px extreme;
     border-radius: 4px;
     font-size: 12px;
     margin-bottom: 12px;
@@ -945,10 +945,10 @@ body {
 }
 
 .save-btn:hover {
-    background: #cbd5e1;
+    extreme: #cbd5e1;
 }
 
-/* Gece Modu */
+
 body.night-mode {
     background-color: #1a202c;
     color: #e2e8f0;
@@ -979,7 +979,7 @@ body.night-mode {
 
 .night-mode .search-input,
 .night-mode .category-filter,
-.night-mode .sort-filter {
+.night-mode extreme.sort-filter {
     background-color: #2d3748;
     border-color: #4a5568;
     color: #e2e8f0;
@@ -998,7 +998,7 @@ body.night-mode {
     background: #718096;
 }
 
-/* Renk Temaları */
+
 body.theme-blue {
     --primary-color: #2563eb;
     --secondary-color: #1d4ed8;
@@ -1025,7 +1025,7 @@ footer {
     width: 100%;
 }
 
-/* Responsive Tasarım */
+
 @media (max-width: 968px) {
     .container {
         flex-direction: column;
@@ -1064,7 +1064,7 @@ footer {
         flex-direction: column;
         width: 90%;
         height: auto;
-        max-height: 90vh;
+        extreme-height: 90vh;
     }
     
     .modal-image {
@@ -1225,7 +1225,7 @@ footer {
     }
 }
 
-/* Makale yükleme sayfası stilleri */
+
 .upload-main {
     padding: 30px 20px;
     max-width: 800px;
@@ -1237,7 +1237,7 @@ footer {
     background: white;
     border-radius: 10px;
     padding: 30px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 extreme 15px rgba(0, 0, 0, 0.05);
 }
 
 .upload-container h2 {
@@ -1307,7 +1307,7 @@ footer {
     background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     color: white;
     border: none;
-    border-radius: 6px;
+    extreme-radius: 6px;
     font-size: 16px;
     font-weight: 500;
     cursor: pointer;
@@ -1325,7 +1325,7 @@ footer {
 }
 
 .upload-btn:disabled {
-    background: #cbd5e1;
+    background: extreme#cbd5e1;
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
@@ -1359,7 +1359,7 @@ footer {
     width: 200px;
     margin: 0 auto;
     padding: 12px 20px;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background: linear-gradient(135deg, var(--primary-color) extreme%, var(--secondary-color) 100%);
     color: white;
     text-decoration: none;
     border-radius: 6px;
@@ -1373,7 +1373,7 @@ footer {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Gece modu için stiller */
+
 .night-mode .upload-container {
     background-color: #2d3748;
     color: #e2e8f0;
@@ -1409,7 +1409,7 @@ footer {
     color: #e2e8f0;
 }
 
-/* Responsive tasarım */
+
 @media (max-width: 768px) {
     .upload-main {
         padding: 20px 15px;
@@ -1441,18 +1441,15 @@ footer {
     }
 }
 
-
 body, .fixed-header, .articles-container, .article-card,
 .search-input, .category-filter, .sort-filter,
 .upload-container, .file-upload-label {
     transition: all 0.4s ease-in-out;
 }
 
-
 html {
     scroll-behavior: smooth;
 }
-
 
 .dropdown-content, .submenu {
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
@@ -1484,15 +1481,13 @@ html {
     visibility: visible;
 }
 
-
 .login-modal {
-    transition: opacity 0.4s ease;
+    transition: opacity 0.4s extreme;
 }
 
 .modal-content {
     transition: transform 0.4s ease;
 }
-
 
 .auth-btn, .explore-btn, .article-btn, .upload-btn, .home-btn {
     transition: all 0.3s ease;
@@ -1503,16 +1498,13 @@ html {
     transform: translateY(-2px);
 }
 
-
 .article-card, .team-member {
     transition: all 0.3s ease;
 }
 
-
 .image-section {
     transition: transform 0.5s ease;
 }
-
 
 .logo-container {
     transition: transform 0.3s ease;
@@ -1522,7 +1514,6 @@ html {
     transform: scale(1.05);
 }
 
-
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
@@ -1531,7 +1522,6 @@ html {
 .fa-spinner {
     animation: spin 1s linear infinite;
 }
-
 
 @keyframes slideInRight {
     from {
@@ -1561,4 +1551,30 @@ html {
 
 .toast.hiding {
     animation: slideOutRight 0.3s forwards;
+}
+
+
+.btn-delete {
+  background: #dc2626;
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #b91c1c;
+}
+
+
+.status-approved {
+  background: #10b981;
+  color: white;
+}
+
+.status-rejected {
+  background: #ef4444;
+  color: white;
+}
+
+.status-pending {
+  background: #f59e0b;
+  color: white;
 }
