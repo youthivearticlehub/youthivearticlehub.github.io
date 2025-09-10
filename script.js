@@ -1,4 +1,4 @@
-// script.js - Supabase entegrasyonlu
+// script.js 
 document.addEventListener('DOMContentLoaded', async function() {
     console.log('Sayfa yüklendi, başlatılıyor...');
     
@@ -16,9 +16,65 @@ document.addEventListener('DOMContentLoaded', async function() {
         updateAuthUI();
         initializeEventListeners();
         loadThemeSettings();
+        setupMobileMenu();
         console.log('Başlangıç işlemleri tamamlandı');
     }
 });
+
+// Mobile menüyü ayarla
+function setupMobileMenu() {
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const navLinks = document.getElementById('navLinks');
+    
+    if (mobileMenuToggle && navLinks) {
+        mobileMenuToggle.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            
+            // Eğer menü açıksa body'e scrolling'ı engelle
+            if (navLinks.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Dropdown menüler için mobilde tıklama desteği
+        const dropdowns = document.querySelectorAll('.dropdown');
+        dropdowns.forEach(dropdown => {
+            dropdown.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.classList.toggle('active');
+                    
+                    // Diğer dropdown'ları kapat
+                    dropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== this) {
+                            otherDropdown.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        });
+        
+        // Sayfa dışına tıklanınca mobil menüyü kapat
+        document.addEventListener('click', function(e) {
+            if (navLinks.classList.contains('active') && 
+                !e.target.closest('.nav-links') && 
+                !e.target.closest('.mobile-menu-toggle')) {
+                mobileMenuToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.style.overflow = '';
+                
+                // Açık olan dropdown'ları kapat
+                dropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                });
+            }
+        });
+    }
+}
 
 // Kullanıcı profil bilgilerini yükle
 async function loadUserProfile() {
@@ -76,6 +132,7 @@ function initializeEventListeners() {
     if (loginButton) {
         loginButton.addEventListener('click', function(e) {
             e.preventDefault();
+            closeMobileMenu();
             openModal('loginModal');
         });
     }
@@ -83,6 +140,7 @@ function initializeEventListeners() {
     if (signupButton) {
         signupButton.addEventListener('click', function(e) {
             e.preventDefault();
+            closeMobileMenu();
             openModal('signupModal');
         });
     }
@@ -145,6 +203,7 @@ function initializeEventListeners() {
             el.style.cursor = 'pointer';
             el.addEventListener('click', function(e) {
                 e.preventDefault();
+                closeMobileMenu();
                 if (currentUser) {
                     window.location.href = 'profile.html';
                 } else {
@@ -171,7 +230,10 @@ function initializeEventListeners() {
 
     // ESC tuşu ile modal kapatma
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') closeAllModals();
+        if (e.key === 'Escape') {
+            closeAllModals();
+            closeMobileMenu();
+        }
     });
 
     // Dropdown menü etkileşimleri
@@ -185,6 +247,7 @@ function initializeEventListeners() {
         if (!link.dataset.catListener) {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
+                closeMobileMenu();
                 const name = this.textContent.trim();
                 const param = encodeURIComponent(name.toLowerCase());
                 window.open(`articles.html?category=${param}`, '_blank');
@@ -192,6 +255,28 @@ function initializeEventListeners() {
             link.dataset.catListener = '1';
         }
     });
+    
+    // Navigasyon linklerine tıklanınca mobil menüyü kapat
+    document.querySelectorAll('.nav-links a:not(.dropdown a)').forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
+    });
+}
+
+// Mobil menüyü kapat
+function closeMobileMenu() {
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const navLinks = document.getElementById('navLinks');
+    
+    if (mobileMenuToggle && navLinks) {
+        mobileMenuToggle.classList.remove('active');
+        navLinks.classList.remove('active');
+        document.body.style.overflow = '';
+        
+        // Açık olan dropdown'ları kapat
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+            dropdown.classList.remove('active');
+        });
+    }
 }
 
 // Dropdown menüleri ayarla
@@ -201,24 +286,28 @@ function setupDropdownMenus() {
         let hoverTimeout;
 
         dropdown.addEventListener('mouseenter', function() {
-            clearTimeout(hoverTimeout);
-            if (dropdownContent) {
-                dropdownContent.style.visibility = 'visible';
-                dropdownContent.style.opacity = '1';
-                dropdownContent.style.transform = 'translateY(0)';
+            if (window.innerWidth > 768) {
+                clearTimeout(hoverTimeout);
+                if (dropdownContent) {
+                    dropdownContent.style.visibility = 'visible';
+                    dropdownContent.style.opacity = '1';
+                    dropdownContent.style.transform = 'translateY(0)';
+                }
             }
         });
 
         dropdown.addEventListener('mouseleave', function() {
-            hoverTimeout = setTimeout(() => {
-                if (dropdownContent) {
-                    dropdownContent.style.opacity = '0';
-                    dropdownContent.style.transform = 'translateY(-10px)';
-                    setTimeout(() => {
-                        dropdownContent.style.visibility = 'hidden';
-                    }, 300);
-                }
-            }, 100);
+            if (window.innerWidth > 768) {
+                hoverTimeout = setTimeout(() => {
+                    if (dropdownContent) {
+                        dropdownContent.style.opacity = '0';
+                        dropdownContent.style.transform = 'translateY(-10px)';
+                        setTimeout(() => {
+                            dropdownContent.style.visibility = 'hidden';
+                        }, 300);
+                    }
+                }, 100);
+            }
         });
     });
 
@@ -232,17 +321,21 @@ function setupDropdownMenus() {
             submenu.style.transition = 'all 0.3s ease';
             
             item.addEventListener('mouseenter', function() {
-                submenu.style.opacity = '1';
-                submenu.style.visibility = 'visible';
-                submenu.style.transform = 'translateX(0)';
+                if (window.innerWidth > 768) {
+                    submenu.style.opacity = '1';
+                    submenu.style.visibility = 'visible';
+                    submenu.style.transform = 'translateX(0)';
+                }
             });
             
             item.addEventListener('mouseleave', function() {
-                submenu.style.opacity = '0';
-                submenu.style.transform = 'translateX(10px)';
-                setTimeout(() => {
-                    submenu.style.visibility = 'hidden';
-                }, 300);
+                if (window.innerWidth > 768) {
+                    submenu.style.opacity = '0';
+                    submenu.style.transform = 'translateX(10px)';
+                    setTimeout(() => {
+                        submenu.style.visibility = 'hidden';
+                    }, 300);
+                }
             });
         }
     });
@@ -256,6 +349,7 @@ function setupSmoothScroll() {
             if (href === '#') return;
             
             e.preventDefault();
+            closeMobileMenu();
             const target = document.querySelector(href);
             if (target) {
                 target.scrollIntoView({
@@ -675,3 +769,6 @@ function showCategoryPanel(name) {
     const closeBtn = panel.querySelector('#cfpClose');
     if (closeBtn) closeBtn.onclick = () => panel.remove();
 }
+
+// Global değişkenler
+let currentUser = null;
