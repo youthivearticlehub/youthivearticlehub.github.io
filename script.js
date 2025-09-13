@@ -1,7 +1,9 @@
-
-// script.js - Supabase entegrasyonlu
+// script.js - Supabase entegrasyonlu + Mobile Optimized
 document.addEventListener('DOMContentLoaded', async function() {
     console.log('Sayfa yüklendi, başlatılıyor...');
+    
+    // Mobil optimizasyonları başlat
+    initializeMobileOptimizations();
     
     try {
         // Mevcut oturumu kontrol et
@@ -19,6 +21,409 @@ document.addEventListener('DOMContentLoaded', async function() {
         loadThemeSettings();
         console.log('Başlangıç işlemleri tamamlandı');
     }
+});
+
+// Mobil cihaz tespiti
+function isMobile() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+           window.innerWidth <= 768;
+}
+
+// Touch cihaz tespiti
+function isTouchDevice() {
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+}
+
+// Viewport meta tag'ını dinamik güncelleme
+function updateViewport() {
+    let viewport = document.querySelector('meta[name="viewport"]');
+    if (!viewport) {
+        viewport = document.createElement('meta');
+        viewport.name = 'viewport';
+        document.head.appendChild(viewport);
+    }
+    
+    if (isMobile()) {
+        viewport.content = 'width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes';
+    } else {
+        viewport.content = 'width=device-width, initial-scale=1.0';
+    }
+}
+
+// Mobil menü toggle fonksiyonu
+function initializeMobileMenu() {
+    if (!isMobile()) return;
+    
+    // Header'ı sticky yapmak için scroll dinleyicisi
+    let lastScrollTop = 0;
+    const header = document.querySelector('.fixed-header');
+    
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Aşağı kaydırırken header'ı gizle, yukarı kaydırırken göster
+        if (scrollTop > lastScrollTop && scrollTop > 100) {
+            if (header) header.style.transform = 'translateY(-100%)';
+        } else {
+            if (header) header.style.transform = 'translateY(0)';
+        }
+        
+        lastScrollTop = scrollTop;
+    });
+    
+    // Dropdown menüleri için touch events
+    const dropdowns = document.querySelectorAll('.dropdown');
+    dropdowns.forEach(dropdown => {
+        const toggle = dropdown.querySelector('a');
+        const content = dropdown.querySelector('.dropdown-content');
+        
+        if (toggle && content) {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Diğer açık menüleri kapat
+                dropdowns.forEach(other => {
+                    if (other !== dropdown) {
+                        const otherContent = other.querySelector('.dropdown-content');
+                        if (otherContent) otherContent.style.display = 'none';
+                    }
+                });
+                
+                // Bu menüyü toggle et
+                if (content.style.display === 'block') {
+                    content.style.display = 'none';
+                } else {
+                    content.style.display = 'block';
+                }
+            });
+        }
+    });
+    
+    // Dışarı tıklandığında menüleri kapat
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.dropdown')) {
+            dropdowns.forEach(dropdown => {
+                const content = dropdown.querySelector('.dropdown-content');
+                if (content) content.style.display = 'none';
+            });
+        }
+    });
+}
+
+// Modal'ların mobil optimizasyonu
+function optimizeModalsForMobile() {
+    const modals = document.querySelectorAll('.login-modal');
+    
+    modals.forEach(modal => {
+        // Touch events ile kapatma
+        modal.addEventListener('touchstart', function(e) {
+            if (e.target === modal) {
+                closeAllModals();
+            }
+        });
+        
+        // Modal içeriğinde kaydırmayı optimize et
+        const modalContent = modal.querySelector('.modal-content');
+        if (modalContent && isMobile()) {
+            modalContent.style.maxHeight = '90vh';
+            modalContent.style.overflowY = 'auto';
+        }
+    });
+}
+
+// Form input'larını mobil için optimize etme
+function optimizeFormsForMobile() {
+    const inputs = document.querySelectorAll('input, textarea, select');
+    
+    inputs.forEach(input => {
+        // iOS'ta zoom'u önlemek için font-size'ı 16px yap
+        if (isMobile() && /iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            input.style.fontSize = '16px';
+        }
+        
+        // Touch cihazlarda daha iyi deneyim için
+        if (isTouchDevice()) {
+            input.addEventListener('focus', function() {
+                setTimeout(() => {
+                    this.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center' 
+                    });
+                }, 300);
+            });
+        }
+    });
+}
+
+// Lazy loading için intersection observer
+function initializeLazyLoading() {
+    if ('IntersectionObserver' in window) {
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                    }
+                    img.classList.remove('lazy');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+        
+        images.forEach(img => imageObserver.observe(img));
+    }
+}
+
+// Swipe gesture desteği
+function addSwipeSupport() {
+    if (!isTouchDevice()) return;
+    
+    let startX = 0;
+    let startY = 0;
+    
+    document.addEventListener('touchstart', function(e) {
+        if (e.touches && e.touches[0]) {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        }
+    }, { passive: true });
+    
+    document.addEventListener('touchend', function(e) {
+        if (!startX || !startY || !e.changedTouches || !e.changedTouches[0]) return;
+        
+        const endX = e.changedTouches[0].clientX;
+        const endY = e.changedTouches[0].clientY;
+        
+        const diffX = startX - endX;
+        const diffY = startY - endY;
+        
+        // Yatay swipe (sağa/sola)
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+            if (diffX > 0) {
+                // Sola swipe - sonraki sayfa
+                console.log('Swipe left detected');
+            } else {
+                // Sağa swipe - önceki sayfa  
+                console.log('Swipe right detected');
+            }
+        }
+        
+        startX = 0;
+        startY = 0;
+    }, { passive: true });
+}
+
+// Mobil klavye açılınca layout düzenleme
+function handleMobileKeyboard() {
+    if (!isMobile()) return;
+    
+    const inputs = document.querySelectorAll('input, textarea');
+    let originalHeight = window.innerHeight;
+    
+    inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            setTimeout(() => {
+                if (window.innerHeight < originalHeight * 0.75) {
+                    document.body.classList.add('keyboard-open');
+                }
+            }, 300);
+        });
+        
+        input.addEventListener('blur', function() {
+            document.body.classList.remove('keyboard-open');
+        });
+    });
+}
+
+// Pull-to-refresh desteği
+function addPullToRefresh() {
+    if (!isMobile()) return;
+    
+    let startY = 0;
+    let pulling = false;
+    
+    document.addEventListener('touchstart', function(e) {
+        if (window.scrollY === 0 && e.touches && e.touches[0]) {
+            startY = e.touches[0].clientY;
+            pulling = true;
+        }
+    }, { passive: true });
+    
+    document.addEventListener('touchmove', function(e) {
+        if (!pulling || !e.touches || !e.touches[0]) return;
+        
+        const currentY = e.touches[0].clientY;
+        const pullDistance = currentY - startY;
+        
+        if (pullDistance > 100 && window.scrollY === 0) {
+            // Pull-to-refresh göstergesi göster
+            console.log('Pull to refresh triggered');
+        }
+    }, { passive: true });
+    
+    document.addEventListener('touchend', function() {
+        pulling = false;
+        startY = 0;
+    }, { passive: true });
+}
+
+// Toast bildirimlerini mobil için optimize etme
+function showToastMobile(message, type = 'info') {
+    const existingToast = document.querySelector('.toast');
+    if (existingToast) {
+        existingToast.classList.add('hiding');
+        setTimeout(() => existingToast.remove(), 300);
+    }
+
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    
+    // Mobil için özel stil
+    if (isMobile()) {
+        toast.style.cssText = `
+            position: fixed;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            z-index: 9999;
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 500;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transform: translateY(100px);
+            transition: transform 0.3s ease;
+        `;
+    } else {
+        toast.style.cssText = `
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            z-index: 9999;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s ease;
+            font-size: 14px;
+            max-width: 350px;
+            min-width: 250px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        `;
+    }
+    
+    // Tip'e göre renk
+    const colors = {
+        success: '#10b981',
+        error: '#ef4444',
+        warning: '#f59e0b',
+        info: '#3b82f6'
+    };
+    
+    toast.style.backgroundColor = colors[type] || colors.info;
+    
+    const icons = {
+        success: 'fas fa-check-circle',
+        error: 'fas fa-exclamation-circle',
+        warning: 'fas fa-exclamation-triangle',
+        info: 'fas fa-info-circle'
+    };
+    
+    toast.innerHTML = `
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="${icons[type]}"></i>
+                <span>${message}</span>
+            </div>
+            <button onclick="this.closest('.toast').remove()" 
+                    style="background: none; border: none; color: white; cursor: pointer; font-size: 18px; margin-left: 10px;">&times;</button>
+        </div>
+    `;
+    
+    document.body.appendChild(toast);
+    
+    // Animasyon
+    setTimeout(() => {
+        if (isMobile()) {
+            toast.style.transform = 'translateY(0)';
+        } else {
+            toast.style.opacity = '1';
+            toast.style.transform = 'translateX(0)';
+        }
+    }, 100);
+    
+    // Otomatik kapat
+    setTimeout(() => {
+        if (toast.parentElement) {
+            toast.classList.add('hiding');
+            if (isMobile()) {
+                toast.style.transform = 'translateY(100px)';
+            } else {
+                toast.style.transform = 'translateX(100%)';
+                toast.style.opacity = '0';
+            }
+            setTimeout(() => toast.remove(), 300);
+        }
+    }, 4000);
+}
+
+// Tüm mobil optimizasyonları başlat
+function initializeMobileOptimizations() {
+    updateViewport();
+    initializeMobileMenu();
+    optimizeModalsForMobile();
+    optimizeFormsForMobile();
+    initializeLazyLoading();
+    addSwipeSupport();
+    handleMobileKeyboard();
+    addPullToRefresh();
+    
+    // Mobil cihazlarda showToast fonksiyonunu override et
+    if (isMobile()) {
+        window.showToast = showToastMobile;
+    }
+    
+    // Mobil için özel CSS class'ı ekle
+    if (isMobile()) {
+        document.body.classList.add('is-mobile');
+    }
+    
+    if (isTouchDevice()) {
+        document.body.classList.add('is-touch');
+    }
+    
+    // Service Worker registrasyonu (offline destek için)
+    if ('serviceWorker' in navigator && isMobile()) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/sw.js')
+                .then(registration => console.log('SW registered'))
+                .catch(error => console.log('SW registration failed'));
+        });
+    }
+}
+
+// Window resize dinleyicisi
+window.addEventListener('resize', function() {
+    updateViewport();
+    
+    // Orientation change'de layout'u yeniden hesapla
+    setTimeout(() => {
+        const wasMobile = document.body.classList.contains('is-mobile');
+        const nowMobile = isMobile();
+        if (wasMobile !== nowMobile) {
+            location.reload(); // Mobil/desktop geçişinde sayfa yenile
+        }
+    }, 100);
 });
 
 // Kullanıcı profil bilgilerini yükle
@@ -201,32 +606,34 @@ function setupDropdownMenus() {
         const dropdownContent = dropdown.querySelector('.dropdown-content');
         let hoverTimeout;
 
-        dropdown.addEventListener('mouseenter', function() {
-            clearTimeout(hoverTimeout);
-            if (dropdownContent) {
-                dropdownContent.style.visibility = 'visible';
-                dropdownContent.style.opacity = '1';
-                dropdownContent.style.transform = 'translateY(0)';
-            }
-        });
-
-        dropdown.addEventListener('mouseleave', function() {
-            hoverTimeout = setTimeout(() => {
+        if (!isMobile()) {
+            dropdown.addEventListener('mouseenter', function() {
+                clearTimeout(hoverTimeout);
                 if (dropdownContent) {
-                    dropdownContent.style.opacity = '0';
-                    dropdownContent.style.transform = 'translateY(-10px)';
-                    setTimeout(() => {
-                        dropdownContent.style.visibility = 'hidden';
-                    }, 300);
+                    dropdownContent.style.visibility = 'visible';
+                    dropdownContent.style.opacity = '1';
+                    dropdownContent.style.transform = 'translateY(0)';
                 }
-            }, 100);
-        });
+            });
+
+            dropdown.addEventListener('mouseleave', function() {
+                hoverTimeout = setTimeout(() => {
+                    if (dropdownContent) {
+                        dropdownContent.style.opacity = '0';
+                        dropdownContent.style.transform = 'translateY(-10px)';
+                        setTimeout(() => {
+                            dropdownContent.style.visibility = 'hidden';
+                        }, 300);
+                    }
+                }, 100);
+            });
+        }
     });
 
     // Submenu animasyonları
     document.querySelectorAll('.has-submenu').forEach(item => {
         const submenu = item.querySelector('.submenu');
-        if (submenu) {
+        if (submenu && !isMobile()) {
             submenu.style.opacity = '0';
             submenu.style.visibility = 'hidden';
             submenu.style.transform = 'translateX(10px)';
@@ -495,7 +902,7 @@ function updateAuthUI() {
         }
         
         if (userName) {
-            userName.textContent = currentUser.profile.username || currentUser.email;
+            userName.textContent = currentUser.profile?.username || currentUser.email;
         }
     } else {
         // Çıkış yapılmış durum
@@ -596,40 +1003,81 @@ function showToast(message, type = 'info', duration = 4000) {
         info: '#3b82f6'
     };
     
-    toast.style.cssText = `
-        position: fixed;
-        top: 90px;
-        right: 20px;
-        background: ${colors[type]};
-        color: white;
-        padding: 15px 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        z-index: 9999;
-        opacity: 0;
-        transform: translateX(100%);
-        transition: all 0.3s ease;
-        font-size: 14px;
-        font-weight: 500;
-        max-width: 350px;
-        min-width: 250px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    `;
+    // Mobil ve desktop için farklı pozisyonlama
+    if (isMobile()) {
+        toast.style.cssText = `
+            position: fixed;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            z-index: 9999;
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 500;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            transform: translateY(100px);
+            transition: transform 0.3s ease;
+            background: ${colors[type]};
+        `;
+    } else {
+        toast.style.cssText = `
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            z-index: 9999;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s ease;
+            font-size: 14px;
+            max-width: 350px;
+            min-width: 250px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: ${colors[type]};
+        `;
+    }
     
     toast.innerHTML = `
-        <i class="${icons[type]}"></i>
-        <span>${message}</span>
-        <button onclick="this.parentElement.remove()" style="background: none; border: none; color: white; margin-left: auto; cursor: pointer; font-size: 16px;">&times;</button>
+        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <i class="${icons[type]}"></i>
+                <span>${message}</span>
+            </div>
+            <button onclick="this.closest('.toast').remove()" 
+                    style="background: none; border: none; color: white; cursor: pointer; font-size: 18px; margin-left: 10px;">&times;</button>
+        </div>
     `;
     
     document.body.appendChild(toast);
     
-    // Otomatik kaldırma
+    // Animasyon
+    setTimeout(() => {
+        if (isMobile()) {
+            toast.style.transform = 'translateY(0)';
+        } else {
+            toast.style.opacity = '1';
+            toast.style.transform = 'translateX(0)';
+        }
+    }, 100);
+    
+    // Otomatik kapat
     setTimeout(() => {
         if (toast.parentElement) {
             toast.classList.add('hiding');
+            if (isMobile()) {
+                toast.style.transform = 'translateY(100px)';
+            } else {
+                toast.style.transform = 'translateX(100%)';
+                toast.style.opacity = '0';
+            }
             setTimeout(() => toast.remove(), 300);
         }
     }, duration);
@@ -638,21 +1086,46 @@ function showToast(message, type = 'info', duration = 4000) {
 // Kategori hoş geldiniz banner'ı
 function showCategoryWelcome(name) {
     const msg = `${name} kategorisine hoş geldiniz!`;
-    try { showToast(msg, 'info'); } catch (e) { alert(msg); }
+    try { 
+        showToast(msg, 'info'); 
+    } catch (e) { 
+        alert(msg); 
+    }
 
     let banner = document.getElementById('categoryWelcome');
     if (!banner) {
         banner = document.createElement('div');
         banner.id = 'categoryWelcome';
-        banner.style.cssText = 'margin:80px auto 0; max-width:1200px; padding:12px 16px; background:#f0f4f8; color:#3a4f66; border:1px solid #e2e8f0; border-radius:8px; display:flex; align-items:center; gap:10px;';
+        banner.style.cssText = `
+            margin: ${isMobile() ? '120' : '80'}px auto 0; 
+            max-width: 1200px; 
+            padding: 12px 16px; 
+            background: #f0f4f8; 
+            color: #3a4f66; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 8px; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px;
+            ${isMobile() ? 'margin-left: 15px; margin-right: 15px;' : ''}
+        `;
         const header = document.querySelector('.fixed-header');
-        if (header) header.insertAdjacentElement('afterend', banner);
-        else document.body.insertBefore(banner, document.body.firstChild);
+        if (header) {
+            header.insertAdjacentElement('afterend', banner);
+        } else {
+            document.body.insertBefore(banner, document.body.firstChild);
+        }
     }
-    banner.innerHTML = `<i class="fas fa-folder-open"></i> <strong>${name}</strong> kategorisine hoş geldiniz. <button id="cwClose" style="margin-left:auto;background:none;border:none;cursor:pointer;font-size:18px;color:#64748b">&times;</button>`;
+    banner.innerHTML = `
+        <i class="fas fa-folder-open"></i> 
+        <strong>${name}</strong> kategorisine hoş geldiniz. 
+        <button id="cwClose" style="margin-left:auto;background:none;border:none;cursor:pointer;font-size:18px;color:#64748b">&times;</button>
+    `;
     const close = banner.querySelector('#cwClose');
     if (close) close.onclick = () => banner.remove();
-    setTimeout(() => { if (banner && banner.parentElement) banner.remove(); }, 6000);
+    setTimeout(() => { 
+        if (banner && banner.parentElement) banner.remove(); 
+    }, 6000);
 }
 
 // Sabit konumlu kategori paneli (ayrı yerde gösterim)
@@ -661,17 +1134,31 @@ function showCategoryPanel(name) {
     if (!panel) {
         panel = document.createElement('div');
         panel.id = 'categoryFixedPanel';
-        panel.style.cssText = 'position:fixed; left:20px; bottom:20px; max-width:300px; background:#ffffff; color:#3a4f66; border:1px solid #e2e8f0; border-radius:8px; box-shadow:0 8px 24px rgba(0,0,0,0.15); padding:12px 14px; z-index:10000;';
+        panel.style.cssText = `
+            position: fixed; 
+            ${isMobile() ? 'left: 15px; right: 15px; bottom: 15px;' : 'left: 20px; bottom: 20px; max-width: 300px;'} 
+            background: #ffffff; 
+            color: #3a4f66; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 8px; 
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15); 
+            padding: 12px 14px; 
+            z-index: 10000;
+        `;
         document.body.appendChild(panel);
     }
-    const safe = (t) => { const d = document.createElement('div'); d.textContent = t || ''; return d.innerHTML; };
+    const safe = (t) => { 
+        const d = document.createElement('div'); 
+        d.textContent = t || ''; 
+        return d.innerHTML; 
+    };
     panel.innerHTML = `
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-        <i class="fas fa-bookmark"></i>
-        <strong>${safe(name)} Kategorisi</strong>
-        <button id="cfpClose" style="margin-left:auto;background:none;border:none;cursor:pointer;font-size:16px;color:#64748b">&times;</button>
-      </div>
-      <div style="font-size:13px; color:#64748b;">${safe(name)} kategorisine hoş geldiniz.</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <i class="fas fa-bookmark"></i>
+            <strong>${safe(name)} Kategorisi</strong>
+            <button id="cfpClose" style="margin-left:auto;background:none;border:none;cursor:pointer;font-size:16px;color:#64748b">&times;</button>
+        </div>
+        <div style="font-size:13px; color:#64748b;">${safe(name)} kategorisine hoş geldiniz.</div>
     `;
     const closeBtn = panel.querySelector('#cfpClose');
     if (closeBtn) closeBtn.onclick = () => panel.remove();
