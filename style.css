@@ -1578,3 +1578,1402 @@ html {
   background: #f59e0b;
   color: white;
 }
+/* ============================================
+   MOBİL RESPONSIVE CSS EKLENTİSİ
+   Mevcut style.css dosyasının sonuna eklenecek
+   ============================================ */
+
+/* Mobil için ek CSS sınıfları */
+.is-mobile .fixed-header {
+    transition: transform 0.3s ease;
+}
+
+.is-touch .auth-btn,
+.is-touch .article-btn,
+.is-touch .btn,
+.is-touch .nav-links a,
+.is-touch .dropdown > a {
+    min-height: 44px;
+    min-width: 44px;
+    touch-action: manipulation;
+}
+
+.keyboard-open {
+    padding-bottom: 0 !important;
+}
+
+/* Tablet ve küçük ekranlar için (768px ve altı) */
+@media screen and (max-width: 768px) {
+    
+    /* Mevcut responsive kuralları geçersiz kıl */
+    body {
+        padding-top: 140px; /* Updated for mobile header */
+    }
+    
+    /* Header Düzenlemeleri */
+    .fixed-header {
+        padding: 0 15px;
+        height: auto;
+        min-height: 120px;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 0;
+    }
+    
+    .nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .nav-links a {
+        font-size: 14px;
+        padding: 8px 12px;
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .logo-container {
+        order: 1;
+        text-align: center;
+    }
+    
+    .logo-container h1 {
+        font-size: 22px;
+    }
+    
+    .logo-container h2 {
+        font-size: 12px;
+    }
+    
+    .auth-section {
+        order: 2;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .user-profile {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+    
+    .user-avatar {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+    
+    .user-name {
+        font-size: 12px;
+    }
+    
+    .auth-buttons {
+        gap: 8px;
+    }
+    
+    .auth-btn {
+        padding: 8px 15px;
+        font-size: 13px;
+    }
+    
+    /* Dropdown menüler mobilde statik */
+    .dropdown .dropdown-content {
+        position: static;
+        display: none;
+        box-shadow: none;
+        border-radius: 6px;
+        padding: 10px;
+        margin-top: 5px;
+        background: rgba(255,255,255,0.95);
+        width: 100%;
+    }
+    
+    .dropdown .dropdown-content.show {
+        display: block;
+    }
+    
+    .dropdown .dropdown-content .has-submenu .submenu {
+        position: static;
+        box-shadow: none;
+        margin-left: 15px;
+        margin-top: 5px;
+        display: none;
+        width: auto;
+    }
+    
+    .dropdown .dropdown-content .has-submenu .submenu.show {
+        display: block;
+    }
+    
+    /* Ana sayfa düzenlemeleri */
+    .container {
+        flex-direction: column;
+        padding: 20px 15px;
+        gap: 30px;
+        margin-top: 140px;
+        text-align: center;
+    }
+    
+    .welcome-section {
+        padding: 30px 20px;
+    }
+    
+    .welcome-section h2 {
+        font-size: 36px;
+    }
+    
+    .welcome-section p {
+        font-size: 16px;
+        line-height: 1.5;
+        margin: 0 auto 30px;
+    }
+    
+    .image-section {
+        width: 100%;
+        max-width: none;
+        order: -1;
+        height: 300px;
+    }
+    
+    .image-section img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    /* Hakkımızda bölümü */
+    .about-section {
+        padding: 60px 15px;
+    }
+    
+    .about-container {
+        max-width: 100%;
+    }
+    
+    .about-content-section {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+    }
+    
+    .about-text {
+        max-width: 100%;
+        margin-bottom: 30px;
+    }
+    
+    .about-title {
+        font-size: 28px;
+    }
+    
+    .about-content {
+        font-size: 16px;
+    }
+    
+    .team-section {
+        margin-top: 40px;
+    }
+    
+    .team-members {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .logo-placeholder {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .logo-placeholder i {
+        font-size: 40px;
+    }
+    
+    /* Makaleler sayfası */
+    .articles-main {
+        padding: 20px 15px;
+        margin-top: 140px;
+    }
+    
+    .articles-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+    
+    .articles-header h2 {
+        text-align: center;
+        font-size: 24px;
+        order: 1;
+    }
+    
+    .add-article-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 12px;
+        order: 2;
+    }
+    
+    .article-filters {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .search-input,
+    .category-filter,
+    .sort-filter {
+        width: 100%;
+        font-size: 16px; /* iOS zoom'u önlemek için */
+        padding: 12px 15px;
+    }
+    
+    .articles-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .article-card {
+        padding: 20px;
+    }
+    
+    .article-title {
+        font-size: 18px;
+        line-height: 1.4;
+    }
+    
+    .article-excerpt {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+    
+    .article-meta {
+        flex-direction: column;
+        gap: 5px;
+        align-items: flex-start;
+    }
+    
+    .article-actions {
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .article-btn {
+        flex: 1;
+        min-width: 120px;
+        text-align: center;
+    }
+    
+    /* Modal düzenlemeleri */
+    .login-modal .modal-content {
+        flex-direction: column;
+        max-width: 95%;
+        max-height: 90vh;
+        margin: 20px;
+        width: 90%;
+        height: auto;
+    }
+    
+    .modal-image {
+        display: none;
+    }
+    
+    .modal-form {
+        padding: 30px 20px;
+        max-height: none;
+        overflow-y: auto;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        font-size: 16px; /* iOS zoom'u önlemek için */
+        padding: 12px 15px;
+    }
+    
+    /* Upload sayfası */
+    .upload-main {
+        padding: 20px 15px;
+        margin-top: 140px;
+    }
+    
+    .upload-container {
+        padding: 20px;
+    }
+    
+    .upload-container h2 {
+        font-size: 24px;
+    }
+    
+    .file-upload-label {
+        padding: 30px 15px;
+    }
+    
+    .file-upload-label i {
+        font-size: 36px;
+    }
+    
+    .file-upload-label span {
+        font-size: 14px;
+    }
+    
+    /* Editör paneli */
+    .editor-main {
+        padding: 20px 15px;
+        margin-top: 140px;
+    }
+    
+    .editor-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .filters {
+        flex-direction: column;
+    }
+    
+    .filters input,
+    .filters select {
+        width: 100%;
+        font-size: 16px;
+    }
+    
+    .table {
+        font-size: 12px;
+        overflow-x: auto;
+        display: block;
+        white-space: nowrap;
+    }
+    
+    .table th,
+    .table td {
+        padding: 8px 5px;
+        min-width: 100px;
+    }
+    
+    .actions {
+        flex-direction: column;
+        gap: 5px;
+        min-width: 120px;
+    }
+    
+    .btn {
+        width: 100%;
+        text-align: center;
+        font-size: 12px;
+        padding: 6px 8px;
+    }
+    
+    /* Profil sayfası */
+    .profile-main {
+        padding: 20px 15px;
+        margin-top: 140px;
+    }
+    
+    .profile-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .profile-card {
+        order: 1;
+    }
+    
+    .panel:not(.profile-card) {
+        order: 2;
+    }
+    
+    .big-avatar {
+        width: 80px;
+        height: 80px;
+        font-size: 32px;
+    }
+    
+    /* Toast bildirimleri */
+    .toast {
+        left: 15px !important;
+        right: 15px !important;
+        bottom: 15px !important;
+        top: auto !important;
+        width: auto !important;
+        border-radius: 8px;
+        transform: translateY(100px) !important;
+    }
+    
+    .toast.show {
+        transform: translateY(0) !important;
+    }
+    
+    /* Footer */
+    footer {
+        padding: 20px 15px;
+        text-align: center;
+        margin-top: 50px;
+    }
+    
+    footer p {
+        font-size: 13px;
+    }
+}
+
+/* Çok küçük ekranlar için (480px ve altı) */
+@media screen and (max-width: 480px) {
+    
+    .logo-container h1 {
+        font-size: 18px;
+    }
+    
+    .logo-container h2 {
+        font-size: 10px;
+    }
+    
+    .welcome-section h2 {
+        font-size: 28px;
+    }
+    
+    .welcome-section {
+        padding: 20px 15px;
+    }
+    
+    .about-title {
+        font-size: 24px;
+    }
+    
+    .team-title {
+        font-size: 20px;
+    }
+    
+    .article-card {
+        padding: 15px;
+    }
+    
+    .article-title {
+        font-size: 16px;
+    }
+    
+    .modal-content {
+        margin: 10px;
+        width: calc(100% - 20px);
+    }
+    
+    .modal-form {
+        padding: 20px 15px;
+    }
+    
+    .modal-image h2 {
+        font-size: 20px;
+    }
+    
+    .section-title {
+        font-size: 16px;
+    }
+    
+    .fixed-header {
+        min-height: 110px;
+    }
+    
+    .profile-main,
+    .articles-main,
+    .editor-main,
+    .upload-main {
+        margin-top: 120px;
+    }
+    
+    .container {
+        margin-top: 120px;
+    }
+}
+
+/* Landscape tablet düzenlemeleri */
+@media screen and (max-width: 1024px) and (orientation: landscape) {
+    
+    .header-content {
+        flex-direction: row;
+        align-items: center;
+        padding: 10px 0;
+    }
+    
+    .nav-links {
+        order: 1;
+        width: auto;
+    }
+    
+    .logo-container {
+        order: 2;
+    }
+    
+    .auth-section {
+        order: 3;
+        width: auto;
+    }
+    
+    .articles-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .team-members {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .fixed-header {
+        height: auto;
+        min-height: 70px;
+    }
+    
+    body {
+        padding-top: 80px;
+    }
+    
+    .container,
+    .articles-main,
+    .upload-main,
+    .editor-main,
+    .profile-main {
+        margin-top: 90px;
+    }
+}
+
+/* Touch cihazlar için genel düzenlemeler */
+@media (hover: none) and (pointer: coarse) {
+    
+    /* Hover efektlerini kaldırma */
+    .article-card:hover {
+        transform: none;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    .auth-btn:hover,
+    .article-btn:hover,
+    .btn:hover,
+    .explore-btn:hover,
+    .upload-btn:hover,
+    .home-btn:hover {
+        transform: none;
+    }
+    
+    .team-member:hover {
+        transform: none;
+    }
+    
+    .image-section:hover {
+        transform: none;
+    }
+    
+    .image-section:hover img {
+        transform: none;
+    }
+    
+    /* Select ve input'lar için daha iyi touch deneyimi */
+    select,
+    input,
+    textarea {
+        -webkit-appearance: none;
+        border-radius: 8px;
+    }
+    
+    select {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+        background-position: right 8px center;
+        background-repeat: no-repeat;
+        background-size: 16px 12px;
+        padding-right: 40px;
+    }
+}
+
+/* Scroll davranışını iyileştirme */
+@media screen and (max-width: 768px) {
+    
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    body {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Horizontal scroll'u önleme */
+    * {
+        box-sizing: border-box;
+    }
+    
+    .articles-container,
+    .upload-main,
+    .editor-main,
+    .profile-main {
+        overflow-x: hidden;
+    }
+    
+    /* iOS Safari için bottom safe area */
+    @supports (padding: max(0px)) {
+        .login-modal .modal-content,
+        footer,
+        .toast {
+            padding-bottom: max(20px, env(safe-area-inset-bottom));
+        }
+        
+        body {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+    }
+}
+
+/* Dark mode mobil düzenlemeleri */
+.night-mode {
+    @media screen and (max-width: 768px) {
+        
+        .dropdown .dropdown-content {
+            background: rgba(45,55,72,0.95);
+            color: #e2e8f0;
+        }
+        
+        .modal-content {
+            background: #2d3748;
+            color: #e2e8f0;
+        }
+        
+        .dropdown .dropdown-content .has-submenu .submenu {
+            background: rgba(31,41,55,0.95);
+        }
+        
+        .nav-links a {
+            background: rgba(255, 255, 255, 0.15);
+        }
+    }
+}
+
+/* Print media için gizleme */
+@media print {
+    .fixed-header,
+    .auth-section,
+    .login-modal,
+    .toast,
+    .add-article-btn,
+    .article-filters,
+    .article-actions {
+        display: none !important;
+    }
+    
+    .container,
+    .articles-main,
+    .profile-main,
+    .editor-main,
+    .upload-main {
+        margin-top: 0 !important;
+    }
+    
+    body {
+        padding-top: 0 !important;
+    }
+}
+
+/* Özel mobil animasyonlar */
+@keyframes mobileSlideIn {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes mobileSlideOut {
+    from {
+        transform: translateY(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .toast {
+        animation: mobileSlideIn 0.3s forwards;
+    }
+    
+    .toast.hiding {
+        animation: mobileSlideOut 0.3s forwards;
+    }
+    
+    /* Modal animasyonları */
+    .login-modal.active .modal-content {
+        animation: mobileSlideIn 0.4s ease;
+    }
+    
+    /* Loading spinner mobil optimizasyonu */
+    .fa-spinner {
+        font-size: 14px;
+    }
+}
+
+/* Mobil için özel utility sınıfları */
+.mobile-hidden {
+    display: block;
+}
+
+.mobile-only {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .mobile-hidden {
+        display: none !important;
+    }
+    
+    .mobile-only {
+        display: block !important;
+    }
+    
+    .mobile-flex {
+        display: flex !important;
+    }
+    
+    .mobile-center {
+        text-align: center !important;
+    }
+    
+    .mobile-full-width {
+        width: 100% !important;
+    }
+}
+
+/* PWA ve native app görünümü */
+@media (display-mode: standalone) {
+    .fixed-header {
+        padding-top: env(safe-area-inset-top);
+    }
+    
+    body {
+        padding-top: calc(70px + env(safe-area-inset-top));
+    }
+}
+
+/* Keyboard açıldığında özel düzenlemeler */
+.keyboard-open .fixed-header {
+    transform: translateY(-100%);
+}
+
+.keyboard-open .toast {
+    bottom: 10px;
+}
+
+/* Swipe göstergeleri */
+.swipe-indicator {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .swipe-indicator {
+        display: block;
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 12px;
+        pointer-events: none;
+    }
+}/* ============================================
+   MOBİL RESPONSIVE CSS EKLENTİSİ
+   Mevcut style.css dosyasının sonuna eklenecek
+   ============================================ */
+
+/* Mevcut responsive kuralları geçersiz kıl */
+@media (max-width: 968px) {
+    .container {
+        flex-direction: column;
+        gap: 40px;
+        text-align: center;
+        margin-top: 140px; /* Updated for mobile header */
+    }
+}
+
+/* Tablet ve küçük ekranlar için (768px ve altı) */
+@media screen and (max-width: 768px) {
+    
+    /* Header Düzenlemeleri */
+    .fixed-header {
+        padding: 0 15px;
+        height: auto;
+        min-height: 60px;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 0;
+    }
+    
+    .nav-links {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .nav-links a {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+    
+    .logo-container {
+        order: 1;
+        text-align: center;
+    }
+    
+    .logo-container h1 {
+        font-size: 20px;
+    }
+    
+    .logo-container h2 {
+        font-size: 10px;
+    }
+    
+    .auth-section {
+        order: 2;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .user-profile {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+    }
+    
+    .user-avatar {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+    
+    .user-name {
+        font-size: 12px;
+    }
+    
+    .auth-buttons {
+        gap: 8px;
+    }
+    
+    .auth-btn {
+        padding: 8px 15px;
+        font-size: 13px;
+    }
+    
+    /* Dropdown menüler mobilde gizle veya basitleştir */
+    .dropdown .dropdown-content {
+        position: static;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 10px;
+        margin-top: 5px;
+        background: rgba(255,255,255,0.95);
+    }
+    
+    .dropdown .dropdown-content .has-submenu .submenu {
+        position: static;
+        box-shadow: none;
+        margin-left: 15px;
+        margin-top: 5px;
+    }
+    
+    /* Ana sayfa düzenlemeleri */
+    .container {
+        flex-direction: column;
+        padding: 20px 15px;
+        gap: 20px;
+        margin-top: 120px; /* Header yüksekliği artırıldı */
+    }
+    
+    .welcome-section {
+        text-align: center;
+        padding: 30px 20px;
+    }
+    
+    .welcome-section h2 {
+        font-size: 28px;
+    }
+    
+    .welcome-section p {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+    
+    .image-section {
+        width: 100%;
+        max-width: none;
+    }
+    
+    .image-section img {
+        width: 100%;
+        height: auto;
+        max-height: 300px;
+        object-fit: cover;
+    }
+    
+    /* Hakkımızda bölümü */
+    .about-section {
+        padding: 40px 15px;
+    }
+    
+    .about-container {
+        max-width: 100%;
+    }
+    
+    .about-content-section {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .about-text {
+        max-width: 100%;
+        margin-bottom: 30px;
+    }
+    
+    .team-section {
+        margin-top: 40px;
+    }
+    
+    .team-members {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    /* Makaleler sayfası */
+    .articles-main {
+        padding: 20px 15px;
+        margin-top: 120px;
+    }
+    
+    .articles-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+    
+    .articles-header h2 {
+        text-align: center;
+        font-size: 24px;
+    }
+    
+    .add-article-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 12px;
+    }
+    
+    .article-filters {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .search-input,
+    .category-filter,
+    .sort-filter {
+        width: 100%;
+        font-size: 16px; /* iOS zoom'u önlemek için */
+    }
+    
+    .articles-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .article-card {
+        padding: 20px;
+    }
+    
+    .article-title {
+        font-size: 18px;
+        line-height: 1.4;
+    }
+    
+    .article-excerpt {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+    
+    .article-meta {
+        flex-direction: column;
+        gap: 5px;
+        align-items: flex-start;
+    }
+    
+    .article-actions {
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .article-btn {
+        flex: 1;
+        min-width: 120px;
+        text-align: center;
+    }
+    
+    /* Modal düzenlemeleri */
+    .login-modal .modal-content {
+        flex-direction: column;
+        max-width: 95%;
+        max-height: 90vh;
+        margin: 20px;
+    }
+    
+    .modal-image {
+        padding: 20px;
+    }
+    
+    .modal-form {
+        padding: 20px;
+        max-height: none;
+        overflow-y: auto;
+    }
+    
+    .form-row {
+        flex-direction: column;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        font-size: 16px; /* iOS zoom'u önlemek için */
+        padding: 12px;
+    }
+    
+    /* Editör paneli */
+    .editor-main {
+        padding: 20px 15px;
+        margin-top: 120px;
+    }
+    
+    .editor-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .filters {
+        flex-direction: column;
+    }
+    
+    .filters input,
+    .filters select {
+        width: 100%;
+        font-size: 16px;
+    }
+    
+    .table {
+        font-size: 13px;
+    }
+    
+    .table th,
+    .table td {
+        padding: 8px 5px;
+    }
+    
+    .actions {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+    
+    /* Profil sayfası */
+    .profile-main {
+        padding: 20px 15px;
+        margin-top: 120px;
+    }
+    
+    .profile-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .profile-card {
+        order: 1;
+    }
+    
+    .panel:not(.profile-card) {
+        order: 2;
+    }
+    
+    .big-avatar {
+        width: 80px;
+        height: 80px;
+        font-size: 32px;
+    }
+    
+    .table-container {
+        overflow-x: auto;
+    }
+    
+    /* Makale yükleme sayfası */
+    .upload-main {
+        padding: 20px 15px;
+        margin-top: 120px;
+    }
+    
+    .upload-form {
+        max-width: 100%;
+    }
+    
+    .form-section {
+        padding: 20px;
+    }
+    
+    .file-upload-area {
+        padding: 30px 20px;
+    }
+    
+    .file-upload-text {
+        font-size: 14px;
+    }
+    
+    .file-upload-area i {
+        font-size: 40px;
+    }
+    
+    /* Toast bildirimleri */
+    .toast {
+        left: 20px;
+        right: 20px;
+        bottom: 20px;
+        width: auto;
+        border-radius: 8px;
+    }
+    
+    /* Footer */
+    footer {
+        padding: 20px 15px;
+        text-align: center;
+    }
+    
+    footer p {
+        font-size: 13px;
+    }
+}
+
+/* Çok küçük ekranlar için (480px ve altı) */
+@media screen and (max-width: 480px) {
+    
+    .logo-container h1 {
+        font-size: 18px;
+    }
+    
+    .logo-container h2 {
+        font-size: 9px;
+    }
+    
+    .welcome-section h2 {
+        font-size: 24px;
+    }
+    
+    .welcome-section {
+        padding: 20px 15px;
+    }
+    
+    .about-title {
+        font-size: 24px;
+    }
+    
+    .team-title {
+        font-size: 20px;
+    }
+    
+    .article-card {
+        padding: 15px;
+    }
+    
+    .article-title {
+        font-size: 16px;
+    }
+    
+    .modal-content {
+        margin: 10px;
+    }
+    
+    .modal-image h2 {
+        font-size: 20px;
+    }
+    
+    .section-title {
+        font-size: 16px;
+    }
+    
+    .profile-main,
+    .articles-main,
+    .editor-main {
+        margin-top: 110px; /* Header biraz daha küçük */
+    }
+    
+    .container {
+        margin-top: 110px;
+    }
+}
+
+/* Landscape tablet düzenlemeleri */
+@media screen and (max-width: 1024px) and (orientation: landscape) {
+    
+    .header-content {
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    .nav-links {
+        order: 1;
+        width: auto;
+    }
+    
+    .logo-container {
+        order: 2;
+    }
+    
+    .auth-section {
+        order: 3;
+        width: auto;
+    }
+    
+    .articles-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .team-members {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Touch cihazlar için genel düzenlemeler */
+@media (hover: none) and (pointer: coarse) {
+    
+    /* Touch hedeflerini büyütme */
+    .auth-btn,
+    .article-btn,
+    .btn,
+    .nav-links a,
+    .dropdown > a {
+        min-height: 44px;
+        min-width: 44px;
+        touch-action: manipulation;
+    }
+    
+    /* Hover efektlerini kaldırma */
+    .article-card:hover {
+        transform: none;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    .auth-btn:hover,
+    .article-btn:hover,
+    .btn:hover {
+        transform: none;
+    }
+    
+    /* Select ve input'lar için daha iyi touch deneyimi */
+    select,
+    input,
+    textarea {
+        -webkit-appearance: none;
+        border-radius: 8px;
+    }
+    
+    select {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+        background-position: right 8px center;
+        background-repeat: no-repeat;
+        background-size: 16px 12px;
+        padding-right: 40px;
+    }
+}
+
+/* Scroll davranışını iyileştirme */
+@media screen and (max-width: 768px) {
+    
+    html {
+        scroll-behavior: smooth;
+    }
+    
+    body {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Horizontal scroll'u önleme */
+    * {
+        box-sizing: border-box;
+    }
+    
+    .articles-container,
+    .upload-main,
+    .editor-main,
+    .profile-main {
+        overflow-x: hidden;
+    }
+    
+    /* iOS Safari için bottom safe area */
+    @supports (padding: max(0px)) {
+        .login-modal .modal-content,
+        footer {
+            padding-bottom: max(20px, env(safe-area-inset-bottom));
+        }
+    }
+}
+
+/* Dark mode mobil düzenlemeleri */
+.night-mode {
+    @media screen and (max-width: 768px) {
+        
+        .dropdown .dropdown-content {
+            background: rgba(45,55,72,0.95);
+        }
+        
+        .modal-content {
+            background: #2d3748;
+        }
+        
+        .dropdown .dropdown-content .has-submenu .submenu {
+            background: rgba(31,41,55,0.95);
+        }
+    }
+}
+
+/* Print media için gizleme */
+@media print {
+    .fixed-header,
+    .auth-section,
+    .login-modal,
+    .toast,
+    .add-article-btn,
+    .article-filters,
+    .article-actions {
+        display: none !important;
+    }
+    
+    .container,
+    .articles-main,
+    .profile-main,
+    .editor-main {
+        margin-top: 0 !important;
+    }
+}
