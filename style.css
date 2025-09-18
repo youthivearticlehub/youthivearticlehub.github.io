@@ -3011,3 +3011,21 @@ footer .social-icon {
 footer .social-icon:hover {
     color: #ccc;
 }
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.social-icon {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.social-icon:hover {
+    color: #F5E39E;
+}
+
