@@ -2977,3 +2977,25 @@ html {
         margin-top: 0 !important;
     }
 }
+footer .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+footer .social-icon {
+    color: white;
+    font-size: 28px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer .social-icon:hover {
+    color: #ccc;
+}
+
+footer .x-icon {
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-weight: bold;
+}
